@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribe from MoxyTok</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .unsubscribe-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            flex: 1;
+            transition: background-color 0.3s ease;
+        }
+        .unsubscribe-button {
+            background-color: #ccc;
+            color: #333;
+        }
+        .unsubscribe-button:hover {
+            background-color: #999;
+        }
+        .think-button {
+            background-color: #007BFF;
+            color: white;
+        }
+        .think-button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 480px) {
+            .button-container {
+                flex-direction: column;
+            }
+            .button {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+    <script>
+        function unsubscribe() {
+            var email = getParameterByName('email');  // Get the email from the URL
+            if (email) {
+                // Send the email to the Google Apps Script for logging
+                var xhr = new XMLHttpRequest();
+                var url = "https://script.google.com/macros/s/AKfycbzQL9r5IEHuB9giioPCQlBG3hg6xWNNvVf9eljFURW_xV5baQQyO-OunIUF5dapkUBJ/exec";  // Replace with your actual Google Apps Script URL
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("email=" + encodeURIComponent(email));
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Show success message
+                        alert("You have successfully unsubscribed from MoxyTok, but we welcome you back any time you are interested again.");
+                    } else {
+                        alert("There was an issue processing your request. Please try again later.");
+                    }
+                };
+            }
+        }
+
+        // Helper function to get email from the URL query string
+        function getParameterByName(name) {
+            var url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+    </script>
+</head>
+<body>
+
+    <div class="unsubscribe-container">
+        <h2>Are you sure you want to unsubscribe from MoxyTok?</h2>
+        <p>If you choose to unsubscribe, you won’t receive any more updates from us.</p>
+        <div class="button-container">
+            <!-- Unsubscribe button -->
+            <button class="button unsubscribe-button" onclick="unsubscribe()">Yes, I want to unsubscribe</button>
+
+            <!-- Think button (more visible) -->
+            <button class="button think-button" onclick="alert('Take your time! You can come back anytime.')">Let me think</button>
+        </div>
+    </div>
+
+</body>
+</html>
