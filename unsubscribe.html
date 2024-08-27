@@ -76,7 +76,7 @@
             if (email) {
                 // Send the email to the Google Apps Script for logging
                 var xhr = new XMLHttpRequest();
-                var url = "https://script.google.com/macros/s/AKfycbzQL9r5IEHuB9giioPCQlBG3hg6xWNNvVf9eljFURW_xV5baQQyO-OunIUF5dapkUBJ/exec";  // Replace with your actual Google Apps Script URL
+                var url = "https://script.google.com/macros/s/AKfycbwI-67lH2ErAuhQ9gpxZulINvQxD0aKfQ6TqXnrFel6hvL9F-8cydTMC44Vt0DcokAO/exec";  // Replace with your actual Google Apps Script URL
                 xhr.open("POST", url, true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.send("email=" + encodeURIComponent(email));
