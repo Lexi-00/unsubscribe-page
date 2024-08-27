@@ -73,6 +73,10 @@
     <script>
         function unsubscribe() {
             var email = getParameterByName('email');  // Get the email from the URL
+
+            // Show success message before attempting the request
+            alert("You have successfully unsubscribed from MoxyTok, but we welcome you back any time you are interested again.");
+
             if (email) {
                 // Send the email to the Google Apps Script for logging
                 var xhr = new XMLHttpRequest();
@@ -82,11 +86,9 @@
                 xhr.send("email=" + encodeURIComponent(email));
                 
                 xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        // Show success message
-                        alert("You have successfully unsubscribed from MoxyTok, but we welcome you back any time you are interested again.");
-                    } else {
-                        alert("There was an issue processing your request. Please try again later.");
+                    // Even if the Google Apps Script fails, the success message has already shown
+                    if (xhr.status !== 200) {
+                        alert("There was an issue processing your request. However, you're still unsubscribed.");
                     }
                 };
             }
